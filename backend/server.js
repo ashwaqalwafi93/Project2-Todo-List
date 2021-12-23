@@ -27,6 +27,7 @@ app.get('/tasks',(req,res)=>{//بطلع جميع البيانات
 });
 });
 
+//CRUD opreation:create,Read, Ubdate,Delete
 //add new data
 app.post('/tasks',(req,res)=>{
     
@@ -69,7 +70,7 @@ app.put('/tasks/:id',(req,res)=>{
                 res.status(400).json(err)//ويرسل ان فيه مشكله بالسرفر
             }else{
                 console.log(updateObj)
-                updateObj.matchedCount===1 //اذا كتبت الاسم وماحذفه يعني الاسم مو موجود من ضمن الجدول
+                updateObj.modifiedCount===1 //اذا كتبت الاسم وماحذفه يعني الاسم مو موجود من ضمن الجدول
                 ? res.json('ubdate one TODO succesffuly')
                 : res.status(404).json('user not found  ')
                   
@@ -77,6 +78,49 @@ app.put('/tasks/:id',(req,res)=>{
     });  
 });
 
+
+// qery params /:
+//qery params ? 
+// get return finish task &  get return not finish task shortcut in down function
+//حسب اليوزر ايش بدخل
+//http://localhost:5000/filter?isCompleted=false
+//             key=value&key=value
+app.get('/filter',(req,res)=>{
+    console.log(req.query)
+    Todo.find({ isCompleted:req.query.isCompleted},(err,data)=>{//بدخل من اليوزر
+       
+        if(err){
+            console.log("ERROR",err)         
+        }else{
+            res.json(data);
+}   
+});
+});
+
+/*
+// get return finish task 
+app.get('/completed',(req,res)=>{
+    Todo.find({ isCompleted:true},(err,data)=>{
+       
+        if(err){
+            console.log("ERROR",err)         
+        }else{
+            res.json(data);
+}   
+});
+});
+// get return not finish task 
+app.get('/not_completed',(req,res)=>{
+    Todo.find({ isCompleted:false},(err,data)=>{
+       
+        if(err){
+            console.log("ERROR",err)         
+        }else{
+            res.json(data);
+}   
+});
+});
+*/
 
 
 app.listen(5000,()=>{//هذا يشغل السرفر
