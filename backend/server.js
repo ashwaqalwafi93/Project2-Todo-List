@@ -14,7 +14,8 @@ app.get('/',(req,res)=>{//بطلع جميع البيانات
 });
 
 
-//pring all data
+//pring all data 
+//http://localhost:5000/tasks
 app.get('/tasks',(req,res)=>{//بطلع جميع البيانات 
     Todo.find({},(err,data)=>{
         if(err){
@@ -29,6 +30,7 @@ app.get('/tasks',(req,res)=>{//بطلع جميع البيانات
 
 //CRUD opreation:create,Read, Ubdate,Delete
 //add new data
+//http://localhost:5000/tasks and add from body
 app.post('/tasks',(req,res)=>{
     
         console.log("25:",req.body);//pring data from postman(req.body)
@@ -44,6 +46,7 @@ app.post('/tasks',(req,res)=>{
 
 //in postman 
 //delete by id
+//http://localhost:5000/tasks/61c3e711774dd669298d1f69
 app.delete('/tasks/:id',(req,res)=>{
     console.log("37:",req.params.id);//this way read id from db
     //               accses to id for delete
@@ -61,6 +64,7 @@ app.delete('/tasks/:id',(req,res)=>{
 
 //ubdate in the task 
 //ubdate spasifc element in id
+//http://localhost:5000/tasks/61c40f94a9329db173f2a3a0 change from body
 app.put('/tasks/:id',(req,res)=>{
     //console.log(req.params)//تجيب الاسماء
     Todo.updateOne({_id:req.params.id},//الايدي الي بغيره الي داخله
@@ -87,6 +91,7 @@ app.put('/tasks/:id',(req,res)=>{
 //             key=value&key=value
 app.get('/filter',(req,res)=>{
     console.log(req.query)
+    //                 this filter
     Todo.find({ isCompleted:req.query.isCompleted},(err,data)=>{//بدخل من اليوزر
        
         if(err){
@@ -122,6 +127,48 @@ app.get('/not_completed',(req,res)=>{
 });
 */
 
+
+//delete all tasks is completed 
+//http://localhost:5000/tasks
+app.delete('/tasks',(req,res)=>{
+   
+    //               accses to id for delete
+    Todo.deleteMany({isCompleted:true},(err,deleteObj)=>{// يجيني الاسم من المستخد البوست مان واحذفه والاهم الاسم بالداتا بيس والقيمه
+            if(err){
+                console.log("erorr",err)//اذا كان فيه ابرور يوقف 
+            }else{
+                console.log(deleteObj)
+                deleteObj.deletedCount===0 //لانه اكثر من واحد ما اكتب واحد
+                ?res.json('There is no completed todo found')
+                :res.json('Delete all completed todo successfully  ') ;
+             }        
+    }); 
+});
+
+
+
+//update in on status task 
+//غير  الكومليتد من صح الخطا والعكس
+//http://localhost:5000/tasks/61c40f8ca9329db173f2a39e/true
+app.put('/tasks/:id/:isCompleted',(req,res)=>{
+    console.log(req.params);
+    Todo.updateOne(
+        {_id: req.params.id},
+        {isCompleted: req.params.isCompleted},
+         (err,updateObj)=>{
+            if(err){
+                console.log("erorr",err);//اذا كان فيه ابرور يوقف 
+                res.status(400).json(err);//ويرسل ان فيه مشكله بالسرفر
+            }else{
+                console.log(updateObj)
+                updateObj.modifiedCount===1 //اذا كتبت الاسم وماحذفه يعني الاسم مو موجود من ضمن الجدول
+                ? res.json('ubdate one TODO succesffuly')
+                : res.status(404).json('this todo is not found  ');
+            }
+                      
+    }
+    );  
+});
 
 app.listen(5000,()=>{//هذا يشغل السرفر
     console.log('server  are working ..')
