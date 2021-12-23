@@ -27,9 +27,6 @@ app.get('/tasks',(req,res)=>{//بطلع جميع البيانات
 });
 });
 
-
-
-
 //add new data
 app.post('/tasks',(req,res)=>{
     
@@ -39,10 +36,47 @@ app.post('/tasks',(req,res)=>{
         if(err){
             console.log("erorr",err)//اذا كان فيه ابرور يوقف 
          }else{
-           res.status(201).json('succes create new Todo successfully'+newTask)
+           res.status(201).json(' create new Todo successfully '+newTask)
        }
     }); 
 });
+
+//in postman 
+//delete by id
+app.delete('/tasks/:id',(req,res)=>{
+    console.log("37:",req.params.id);//this way read id from db
+    //               accses to id for delete
+    Todo.deleteOne({_id:req.params.id},(err,deleteObj)=>{// يجيني الاسم من المستخد البوست مان واحذفه والاهم الاسم بالداتا بيس والقيمه
+            if(err){
+                console.log("erorr",err)//اذا كان فيه ابرور يوقف 
+            }else{
+                deleteObj.deleteCount===1 //if user found done delete but else user not found
+                ?res.json( 'delete one Todo successfully')
+                :res.status(404).json('user not found  ') ;
+             }        
+    }); 
+});
+
+
+//ubdate in the task 
+//ubdate spasifc element in id
+app.put('/tasks/:id',(req,res)=>{
+    //console.log(req.params)//تجيب الاسماء
+    Todo.updateOne({_id:req.params.id},//الايدي الي بغيره الي داخله
+        {title:req.body.newtitle}, (err,updateObj)=>{// {title:req.body.newtitle} وبغيره الى نيو تايتل 
+            if(err){
+                console.log("erorr",err)//اذا كان فيه ابرور يوقف 
+                res.status(400).json(err)//ويرسل ان فيه مشكله بالسرفر
+            }else{
+                console.log(updateObj)
+                updateObj.matchedCount===1 //اذا كتبت الاسم وماحذفه يعني الاسم مو موجود من ضمن الجدول
+                ? res.json('ubdate one TODO succesffuly')
+                : res.status(404).json('user not found  ')
+                  
+                }       
+    });  
+});
+
 
 
 app.listen(5000,()=>{//هذا يشغل السرفر
