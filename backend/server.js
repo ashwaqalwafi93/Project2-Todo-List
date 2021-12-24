@@ -1,13 +1,14 @@
 
 const express=require('express');//create server,make import
 const app=express();
+const cors=require('cors');// used becouse links open other bage
 const db=require('./db');//تصدير الداتا بيس
 const Todo=require("./todo")//file todo.js import
 console.log(Todo)
 
 //midellware read the body
 app.use(express.json());
-
+app.use(cors());
 
 app.get('/',(req,res)=>{//بطلع جميع البيانات 
      res.json('Get / is working');
@@ -173,3 +174,5 @@ app.put('/tasks/:id/:isCompleted',(req,res)=>{
 app.listen(5000,()=>{//هذا يشغل السرفر
     console.log('server  are working ..')
 });
+
+//code server need monngose , express and cors
