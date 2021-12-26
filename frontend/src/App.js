@@ -10,7 +10,7 @@ export default function App() {
   const [tasks, settasks] = useState([]);//objofarray
 //استخدم اليوز افكت واحط فيها المناداه بدل من الزر
   useEffect(()=>{
-  getData();
+  getData()
 },[])
 
 const getData=()=>{
@@ -35,7 +35,7 @@ const postNewTodo=(body)=>{
  
   console.log('func postNewTodo from App')
       axios//هذا الكود الاكسوس
-      .get('http://localhost:5000/tasks',body)
+      .post('http://localhost:5000/tasks',body)
       .then((response)=>{
          //console.log('Response',response);
           console.log('Data',response.data);
@@ -54,7 +54,7 @@ const postNewTodo=(body)=>{
  
     console.log('delettaskAp from App')
         axios//هذا الكود الاكسوس
-        .get(`http://localhost:5000/tasks/,${id}`)//استخدم هذي الطريقه عشان اقدر اقرا قيمة الادي بحرف الذاء``
+        .delete(`http://localhost:5000/tasks/${id}`)//استخدم هذي الطريقه عشان اقدر اقرا قيمة الادي بحرف الذاء``
         .then((response)=>{
            //console.log('Response',response);
             console.log('Data',response.data);
@@ -69,11 +69,11 @@ const postNewTodo=(body)=>{
             console.log('ERR',err);
         });
     }
-    const EdittTodo=(id)=>{
+    const EdittTodo=(id,newStatus)=>{
  
       console.log('Edit from App')
           axios//هذا الكود الاكسوس
-          .get(`http://localhost:5000/tasks/,${id}`)//استخدم هذي الطريقه عشان اقدر اقرا قيمة الادي بحرف الذاء``
+          .put(`http://localhost:5000/tasks/${id}/${newStatus}`)//عشان اجيب الادي الي بعدل عليه مع القيمة الجديده /ابي عكس القيمة القديمه 
           .then((response)=>{
              //console.log('Response',response);
               console.log('Data',response.data);
@@ -88,10 +88,49 @@ const postNewTodo=(body)=>{
               console.log('ERR',err);
           });
       }
+      //يحذف كل التاسك
+      const deleteTask=()=>{
+ 
+        console.log('delete all task from App')
+            axios//هذا الكود الاكسوس
+            .delete('http://localhost:5000/tasks')//استخدم هذي الطريقه عشان اقدر اقرا قيمة الادي بحرف الذاء``
+            .then((response)=>{
+               //console.log('Response',response);
+                console.log('Data',response.data);
+                //لما تجيني الداتا من السرفراحفظها بستيت
+               // settasks(response.data);
+               //change react hooks state using spread operator
+               //reblace using upp
+               getData();
+               
+            })
+            .catch((err)=>{
+                console.log('ERR',err);
+            });
+        }
+//يفلتر المخلص والي مو مخلص 
+const filterData=(status)=>{
+
+      axios//هذا الكود الاكسوس
+      .get(`http://localhost:5000/tasks=${status}`)//يمرر الحاله ترو او فولس 
+      .then((response)=>{
+         //console.log('Response',response);
+          console.log('Data',response.data);
+          //لما تجيني الداتا من السرفراحفظها بستيت
+          //settasks(response.data);
+           
+      })
+      .catch((err)=>{
+          console.log('ERR',err);
+      });
+  }
 
   const mapOverTasks=tasks.map((taskObj,i)=>//سوينا ماب كل مرا نرجع todo
-  <Todo key={i} task={taskObj} deletTodo={deletTodo}
-  EdittTodo={ EdittTodo } />);
+  <Todo 
+      key={taskObj._id} 
+      task={taskObj}
+      deletTodo={deletTodo}
+      EdittTodo={ EdittTodo } />);
 
   //this name jsx
   return (
@@ -101,6 +140,21 @@ const postNewTodo=(body)=>{
             {/*لما اضغط على هذا البوتن ينادي فانكشن تجيب الداتا  */}
       <button class="b1" onClick={getData}>GET TASKS</button>{/*this button bring all data in server */}
       <br/><br/>
+      <button class="b2" onClick={deleteTask}>DELETE ALL TASK COMPLETED</button>
+      <button class="b3" onClick={()=>{
+        filterData(true);
+      }}
+      >
+        GET DATA
+      </button>
+
+      <button class="b4" onClick={()=>{
+        filterData(false);
+      }}
+      >
+        GET PENDING
+      </button>
+      
       {/*give his obj acsses function in app */}
      
       {mapOverTasks}{/*this array */}

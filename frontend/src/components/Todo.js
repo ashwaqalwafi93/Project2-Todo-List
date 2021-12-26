@@ -8,7 +8,11 @@ export default function Todo(props) {
         <div className="Todo">
             <p class="p2">Todo</p>
              {/*بسوي الشيكك بوكس وخلي قيمته الاiscompleted اذا كان ترو يحط لي صح على الي خلصتهم  */}
-            <input type="checkbox" checked={isCompleted}/>
+            <input type="checkbox" defaultChecked={isCompleted} onClick={()=>{
+                {/*لما اضغط بعدل الشيك بوكس ابي الق امرر القيمة الجديده اسوي عكس قيمتها الحاليه */}
+                 props.EdittTodo(_id,!isCompleted);
+
+            }}/>
            
             {/* راح ينعرض النص من البروبز عرض هذه البيانات داخل التودو*/}
             <span style ={{textDecoration:isCompleted?'line-through':'none'}}>{title}</span>
@@ -19,10 +23,7 @@ export default function Todo(props) {
                props.deletTodo(_id);
            }}>X</button>
 
-        <button onClick={()=>{//طريقه ثانبه نفس طريقة البوست 
-               props.EdittTodo(title);
-           }}>Edit</button>
-
+       
         </div>
     )
 }
