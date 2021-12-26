@@ -1,11 +1,34 @@
 .App {
   text-align: center;
-  border: red solid 5px;
+  font-weight: bold;
+  border: rgb(241, 132, 132) solid 3px;
+  background-color: rgb(240, 232, 232);
+  margin: 150px;
+}
+.p1{
+  font-weight: bold;
+  font-size: 20px;
+  color: rgb(194, 25, 209);
+}
+.b1{
+  color: rgba(0, 5, 5, 0.87);
+  background-color: rgb(188, 176, 201);
+  font-family: cursive;
+}
+.Todo span{
+  margin: 0 10px 0 10px;
 }
 
+.Add{
+  border: rgb(89, 102, 90) solid 3px;
+
+}
 .Todo {
   text-align: center;
-  border: rgb(24, 21, 209) solid 5px;
+  border: rgb(102, 89, 101) solid 3px;
+  font-size: 18;
+  font-style: normal;
+  font-family: cursive;
 }
 
 

@@ -3,7 +3,7 @@ import './App.css';
 import React,{ useEffect, useState } from 'react';//عند استخدام الستيت
 import axios from 'axios';
 import Todo from './components/Todo';
-
+import Add from './components/Add';
 
 export default function App() {
 
@@ -13,35 +13,98 @@ export default function App() {
   getData();
 },[])
 
-  const getData=()=>{
-    //this function bring data from server (use axsos) becouse bring data from server(npm i axios)
-    //from backend(GET/tasks)
-    console.log('Get data')
+const getData=()=>{
+  //this function bring data from server (use axsos) becouse bring data from server(npm i axios)
+  //from backend(GET/tasks)
+  console.log('Get data')
 
+      axios//هذا الكود الاكسوس
+      .get('http://localhost:5000/tasks')
+      .then((response)=>{
+         //console.log('Response',response);
+          console.log('Data',response.data);
+          //لما تجيني الداتا من السرفراحفظها بستيت
+          //settasks(response.data);
+           
+      })
+      .catch((err)=>{
+          console.log('ERR',err);
+      });
+  }
+const postNewTodo=(body)=>{
+ 
+  console.log('func postNewTodo from App')
+      axios//هذا الكود الاكسوس
+      .get('http://localhost:5000/tasks',body)
+      .then((response)=>{
+         //console.log('Response',response);
+          console.log('Data',response.data);
+          //لما تجيني الداتا من السرفراحفظها بستيت
+         // settasks(response.data);
+         //change react hooks state using spread operator
+         //reblace using upp
+         getData();
+         
+      })
+      .catch((err)=>{
+          console.log('ERR',err);
+      });
+  }
+  const deletTodo=(id)=>{
+ 
+    console.log('delettaskAp from App')
         axios//هذا الكود الاكسوس
-        .get('http://localhost:5000/tasks')
+        .get(`http://localhost:5000/tasks/,${id}`)//استخدم هذي الطريقه عشان اقدر اقرا قيمة الادي بحرف الذاء``
         .then((response)=>{
            //console.log('Response',response);
             console.log('Data',response.data);
             //لما تجيني الداتا من السرفراحفظها بستيت
-            settasks(response.data);
+           // settasks(response.data);
+           //change react hooks state using spread operator
+           //reblace using upp
+           getData();
+           
         })
         .catch((err)=>{
             console.log('ERR',err);
         });
     }
+    const EdittTodo=(id)=>{
+ 
+      console.log('Edit from App')
+          axios//هذا الكود الاكسوس
+          .get(`http://localhost:5000/tasks/,${id}`)//استخدم هذي الطريقه عشان اقدر اقرا قيمة الادي بحرف الذاء``
+          .then((response)=>{
+             //console.log('Response',response);
+              console.log('Data',response.data);
+              //لما تجيني الداتا من السرفراحفظها بستيت
+             // settasks(response.data);
+             //change react hooks state using spread operator
+             //reblace using upp
+             getData();
+             
+          })
+          .catch((err)=>{
+              console.log('ERR',err);
+          });
+      }
+
   const mapOverTasks=tasks.map((taskObj,i)=>//سوينا ماب كل مرا نرجع todo
-  <Todo keغ={i} task={taskObj}/>);
+  <Todo key={i} task={taskObj} deletTodo={deletTodo}
+  EdittTodo={ EdittTodo } />);
 
   //this name jsx
   return (
     <div className="App">
-      <p>app</p>
-      
+      <p class='p1'>My Tasks</p>
+      <Add createFunc={postNewTodo}/>
             {/*لما اضغط على هذا البوتن ينادي فانكشن تجيب الداتا  */}
-      <button onClick={getData}>GET TASKS</button>{/*this button bring all data in server */}
-      
+      <button class="b1" onClick={getData}>GET TASKS</button>{/*this button bring all data in server */}
+      <br/><br/>
+      {/*give his obj acsses function in app */}
+     
       {mapOverTasks}{/*this array */}
+      
     </div>
   );
 }
