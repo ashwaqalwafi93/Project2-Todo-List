@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React,{ useEffect, useState } from 'react';//عند استخدام الستيت
+
 import axios from 'axios';
 import Todo from './components/Todo';
 import Add from './components/Add';
@@ -10,21 +11,21 @@ export default function App() {
   const [tasks, settasks] = useState([]);//objofarray
 //استخدم اليوز افكت واحط فيها المناداه بدل من الزر
   useEffect(()=>{
-  getData()
-},[])
+  getData();
+},[]);
 
 const getData=()=>{
   //this function bring data from server (use axsos) becouse bring data from server(npm i axios)
   //from backend(GET/tasks)
   console.log('Get data')
 
-      axios//هذا الكود الاكسوس
-      .get('http://localhost:5000/tasks')
+      axios
+      .get(`http://localhost:5000/tasks`)
       .then((response)=>{
          //console.log('Response',response);
           console.log('Data',response.data);
           //لما تجيني الداتا من السرفراحفظها بستيت
-          //settasks(response.data);
+          settasks(response.data);
            
       })
       .catch((err)=>{
@@ -107,12 +108,12 @@ const postNewTodo=(body)=>{
             .catch((err)=>{
                 console.log('ERR',err);
             });
-        }
+        };
 //يفلتر المخلص والي مو مخلص 
 const filterData=(status)=>{
 
       axios//هذا الكود الاكسوس
-      .get(`http://localhost:5000/tasks=${status}`)//يمرر الحاله ترو او فولس 
+      .get(`http://localhost:5000/filter?isCompleted=${status}`)//يمرر الحاله ترو او فولس 
       .then((response)=>{
          //console.log('Response',response);
           console.log('Data',response.data);
@@ -138,21 +139,22 @@ const filterData=(status)=>{
       <p class='p1'>My Tasks</p>
       <Add createFunc={postNewTodo}/>
             {/*لما اضغط على هذا البوتن ينادي فانكشن تجيب الداتا  */}
-      <button class="b1" onClick={getData}>GET TASKS</button>{/*this button bring all data in server */}
+      <button class="b1" onClick={getData}>Get Tasks</button>{/*this button bring all data in server */}
       <br/><br/>
-      <button class="b2" onClick={deleteTask}>DELETE ALL TASK COMPLETED</button>
-      <button class="b3" onClick={()=>{
+      <button class="b2" onClick={deleteTask}>Delete Complted Tasks</button>
+      <button class="b3" 
+      onClick={()=>{
         filterData(true);
       }}
       >
-        GET DATA
+        Get Data
       </button>
 
       <button class="b4" onClick={()=>{
         filterData(false);
       }}
       >
-        GET PENDING
+        G PENDING
       </button>
       
       {/*give his obj acsses function in app */}

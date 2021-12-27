@@ -11,7 +11,9 @@ export default function Add(props) {
    return (
         <div className="Add">
             {/*input always link in state , save in state  */}
-            <input type='text'placeholder='Write new title here'onChange={(e)=>{
+            <input type='text'
+            placeholder='Write new title here'
+            onChange={(e)=>{
                 setnewTitle(e.target.value);
             }
             }/>

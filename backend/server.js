@@ -2,7 +2,8 @@
 const express=require('express');//create server,make import
 const app=express();
 const cors=require('cors');// used becouse links open other bage
-const db=require('./db');//تصدير الداتا بيس
+
+const db=require("./db");//تصدير الداتا بيس
 const Todo=require("./todo")//file todo.js import
 console.log(Todo)
 
@@ -34,7 +35,7 @@ app.get('/tasks',(req,res)=>{//بطلع جميع البيانات
 //http://localhost:5000/tasks and add from body
 app.post('/tasks',(req,res)=>{
     
-        console.log("25:",req.body);//pring data from postman(req.body)
+       // console.log("25:",req.body);//pring data from postman(req.body)
         
        Todo.create(req.body,(err,newTask)=>{//req.bod bring all data
         if(err){

@@ -6,7 +6,7 @@ export default function Todo(props) {
     const{_id , title, isCompleted}=props.task;{/*بوصل الاي دي والتايتل عن طريق الستدركشين  */}
     return (
         <div className="Todo">
-            <p class="p2">Todo</p>
+            
              {/*بسوي الشيكك بوكس وخلي قيمته الاiscompleted اذا كان ترو يحط لي صح على الي خلصتهم  */}
             <input type="checkbox" defaultChecked={isCompleted} onClick={()=>{
                 {/*لما اضغط بعدل الشيك بوكس ابي الق امرر القيمة الجديده اسوي عكس قيمتها الحاليه */}
