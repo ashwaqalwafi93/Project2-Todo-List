@@ -5,6 +5,7 @@ import React,{ useEffect, useState } from 'react';//عند استخدام الس
 import axios from 'axios';
 import Todo from './components/Todo';
 import Add from './components/Add';
+import Register from './components/Register';
 
 export default function App() {
 
@@ -160,7 +161,8 @@ const filterData=(status)=>{
       
       {/*give his obj acsses function in app */}
      
-      {mapOverTasks} {/*this array */}
+   {/* {mapOverTasks} * */}  {/*this array */}
+   <Register/>
       
     </div>
   );

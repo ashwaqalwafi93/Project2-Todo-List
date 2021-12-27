@@ -30,6 +30,10 @@
   font-style: normal;
   font-family: cursive;
 }
+.Register{
+  border: rgb(8, 148, 19) solid 3px;
+
+}
 
 
 .App-logo {
