@@ -150,16 +150,17 @@ const filterData=(status)=>{
         Get Data
       </button>
 
-      <button class="b4" onClick={()=>{
+      <button class="b4"
+       onClick={()=>{
         filterData(false);
       }}
       >
-        G PENDING
+        Get Pending
       </button>
       
       {/*give his obj acsses function in app */}
      
-      {mapOverTasks}{/*this array */}
+      {mapOverTasks} {/*this array */}
       
     </div>
   );

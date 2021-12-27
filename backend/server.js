@@ -7,6 +7,8 @@ const db=require("./db");//تصدير الداتا بيس
 const Todo=require("./todo")//file todo.js import
 console.log(Todo)
 
+const User=require("./Users");
+
 //midellware read the body
 app.use(express.json());
 app.use(cors());
@@ -170,6 +172,55 @@ app.put('/tasks/:id/:isCompleted',(req,res)=>{
                       
     }
     );  
+});
+
+//تسجيل يوزر جديد
+//http://localhost:5000/users/register
+app.post('/users/register',(req,res)=>{
+    
+    User.create(req.body,(err,newuser)=>{//req.bod bring all data
+     if(err){
+         console.log("erorr",err)//اذا كان فيه ابرور يوقف 
+         res.status(400).json({massage:'this email already taken'});//عشان يونيك هذا الايميل موجدد مسبقا */}
+        }else{
+        res.status(201).json(' create '+newuser + 'successfully ');
+    }
+ }); 
+});
+
+
+//لما نبعث داتا نحط بوست حتى لوكان لوق ان
+//بتاكد ان هذا اليوزر موجدو والايميل يونيك مستحيل اثنين نفس بعضهم 
+//اذاكان الايميل مو موجود يهني اليوزر مو عندنا 
+///اذا الباسورد غلط والايميل  صحح
+//user
+app.post("/users/login", (req, res) => {
+    User.find({ email: req.body.email }, (err, arrUserFound) => {//اذا ما حصلت الايميل يدخل على الاف ويقول الايرور 
+      if (err) {
+        console.log("ERROR: ", err);
+      } else {
+        // console.log(arrUserFound);
+        if (arrUserFound.length === 1) {//اذا الايميل موجود يروح ويتاكد من السورد اذا الايميل غط ينزل اخر سطر 
+          // we found the user
+          if (req.body.password === arrUserFound[0].password) {
+            // password correct
+            res.status(200).json({
+              message: "Login Successfully",
+              username: arrUserFound[0].username,
+            });
+          } else {
+            // password incorrect
+            res.status(400).json({
+              message: "Wrong password",
+            });
+          }
+        } else {
+          res.status(404).json({
+            message: "The email entered is not registered",
+          });
+        }
+      }
+    });
 });
 
 app.listen(5000,()=>{//هذا يشغل السرفر
