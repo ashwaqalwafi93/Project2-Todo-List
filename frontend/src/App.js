@@ -6,6 +6,7 @@ import axios from 'axios';
 import Todo from './components/Todo';
 import Add from './components/Add';
 import Register from './components/Register';
+import Login from './components/Login';
 
 export default function App() {
 
@@ -163,7 +164,7 @@ const filterData=(status)=>{
      
    {/* {mapOverTasks} * */}  {/*this array */}
    <Register/>
-      
+      <Login/>
     </div>
   );
 }
