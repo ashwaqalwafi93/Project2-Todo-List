@@ -34,7 +34,9 @@ export default function Login(props) {
     
 
    return (
-        <div className="Login">
+        <div className="m-3">
+         {/*<div className="Login">*/}
+          {/*
             <form action="">
 
 
@@ -60,16 +62,61 @@ export default function Login(props) {
           value={password}
         />
         <br />
-        {}
-        {/*<button type="button" class="btn btn-outline-primary">Primary</button> */}
-
-
-        <input type="submit" value="Login" onClick={loginFunc} className="btn btn-outline-primary"/>
-      </form>
-      <Link to ="/register">Don't Have An Account </Link>
+        
+        {/*<button type="button" class="btn btn-outline-primary">Primary</button> }
       
+        <input type="submit" value="Login" onClick={loginFunc} 
+        className="btn btn-outline-primary"/>
+        <Link to ="/register">Don't Have An Account </Link>
+      </form>
+      */}
 
-         
+      <form>
+      
+  <div className="form-floating mb-3">
+  <input
+   type="email"
+    className="form-control" 
+    id="floatingInput"
+   placeholder="name@example.com"
+          onChange={(e) => {
+            setemail(e.target.value);
+          }}
+          value={email}
+          />
+  <label htmlFor="floatingInput">Email address</label>
+</div>
+
+<br/>
+<div className="nb-3 form-floating">
+  <input type="password" 
+  className="form-control" 
+  id="floatingPassword"
+   placeholder="Password" 
+    placeholder="Write password here ..."
+    onChange={(e) => {
+      setpassword(e.target.value);
+    }}
+    value={password}
+  />
+  <br/>
+  <label htmlFor="floatingPassword">Password</label>
+</div>
+
+
+      <div className='text-center'>
+        <input type="submit" 
+        value="Login" 
+        onClick={loginFunc} 
+        className="btn btn-outline-primary"
+        />
+
+        <Link to ="/register"
+         className="btn btn-link">Don't Have An Account </Link>
+
+        </div>
+
+        </form>{/*استخدام الفورم عشان يتنسق زين في نفس السطر */}
         </div>
     );
 }

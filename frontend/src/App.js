@@ -13,7 +13,7 @@ export default function App() {
   const [tasks, settasks] = useState([]);//objofarray
 //استخدم اليوز افكت واحط فيها المناداه بدل من الزر
 const [isLogedln, setisLogedln] = useState(false);//لما نعما لوق ان تجينا المعلومات نحفظه بستيت بالاب تغير القيم ونمرر المتغير سيت على اللوق ان الي تحت 
-const [userName, setuserName] = useState('ashwaq');
+const [userName, setuserName] = useState('');
 
   useEffect(()=>{
     getData();
@@ -152,29 +152,29 @@ const filterData=(status)=>{
         {/*الشى الي بروح له link to */}
     {/** الروايتر ما راح تتحققق الااذا كان فيه لو قان صح */}
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Todos</a>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+  <div className="container-fluid">
+    <a className="navbar-brand" href="#">Todos</a>
     
     
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
     </button>
     
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
+    <div className="collapse navbar-collapse" id="navbarNav">
+      <ul className="navbar-nav">
+        <li className="nav-item">
              <Link to ="/home" className="nav-link active">
                Home
                </Link>
         </li>
 
-        <li class="nav-item">
+        <li className="nav-item">
         <Link to ="/login"className="nav-link">login</Link>
         </li>
        
 
-        <li class="nav-item">
+        <li className="nav-item">
         <Link to ="/register" className="nav-link">Register</Link>
         </li>
     
@@ -190,10 +190,10 @@ const filterData=(status)=>{
         <div className='Home'>
       <Add createFunc={postNewTodo}/>
             {/*لما اضغط على هذا البوتن ينادي فانكشن تجيب الداتا  */}
-      <button class="b1" onClick={getData}>Get Tasks</button>{/*this button bring all data in server */}
+      <button className="b1" onClick={getData}>Get Tasks</button>{/*this button bring all data in server */}
       <br/><br/>
-      <button class="b2" onClick={deleteTask}>Delete Complted Tasks</button>
-      <button class="b3" 
+      <button className="b2" onClick={deleteTask}>Delete Complted Tasks</button>
+      <button className="b3" 
       onClick={()=>{
         filterData(true);
       }}
@@ -201,7 +201,7 @@ const filterData=(status)=>{
         Get Data
       </button>
 
-      <button class="b4"
+      <button className="b4"
        onClick={()=>{
         filterData(false);
       }}
