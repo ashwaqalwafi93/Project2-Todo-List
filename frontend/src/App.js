@@ -131,6 +131,11 @@ const filterData=(status)=>{
       });
   }
 
+  const logoutfunc=()=>{
+    setisLogedln(false)//اذا اليوزر طلع اخلي قيمته فولس ان ما فيه احد 
+ setuserName(" ")//واليزو نيم فارغ 
+  }
+
   const mapOverTasks=tasks.map((taskObj,i)=>//سوينا ماب كل مرا نرجع todo
   <Todo 
       key={taskObj._id} 
@@ -141,17 +146,43 @@ const filterData=(status)=>{
   //this name jsx
   return (
     <div className="App">
-      <p class='p1'>My Tasks</p>
       <p >Name:{userName}</p>{/*اسم اليوزر الي مسوي لوق ان  */}
       
       
-      <nav>
         {/*الشى الي بروح له link to */}
-      <Link to ="/home">Home</Link>{' | '}{/*'|'هذي الحركة يعني خلي فراغ بينهم  */}
-      <Link to ="/login">login</Link>{' | '}
-      <Link to ="/register">Register</Link>{' | '}
-      </nav>
     {/** الروايتر ما راح تتحققق الااذا كان فيه لو قان صح */}
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Todos</a>
+    
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+             <Link to ="/home" className="nav-link active">
+               Home
+               </Link>
+        </li>
+
+        <li class="nav-item">
+        <Link to ="/login"className="nav-link">login</Link>
+        </li>
+       
+
+        <li class="nav-item">
+        <Link to ="/register" className="nav-link">Register</Link>
+        </li>
+    
+      </ul>
+    </div>
+  </div>
+</nav>
+    
       <Routes>
         <Route 
         path="/home"
@@ -190,6 +221,8 @@ const filterData=(status)=>{
 
       <Route path="/register"element={<Register />}/>
       </Routes>
+      <br/>
+      <button onClick={logoutfunc}>Logout</button>{/**لما يضغط عل زر لوقاوت ينادي الفانكشن ويغير قيمها  */}
       
       {/*give his obj acsses function in app */}
      
@@ -204,4 +237,4 @@ const filterData=(status)=>{
 
 //لما التاسك عندي كيف اقدر اممرها للبروبز عن mapو
 //التودو اقدر استخدم فيها التايتل وال ازكومبيلتد
-//
+//logout زر اللوق اوت وظبفت يخلي الازلوقاند ان واليوزرنيم يخليهم يرجعوا لقيمتهم الرئيسيه 

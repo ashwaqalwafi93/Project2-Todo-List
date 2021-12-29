@@ -60,9 +60,11 @@ export default function Login(props) {
           value={password}
         />
         <br />
+        {}
+        {/*<button type="button" class="btn btn-outline-primary">Primary</button> */}
 
 
-        <input type="submit" value="Login" onClick={loginFunc} />
+        <input type="submit" value="Login" onClick={loginFunc} className="btn btn-outline-primary"/>
       </form>
       <Link to ="/register">Don't Have An Account </Link>
       

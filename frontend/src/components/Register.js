@@ -72,7 +72,8 @@ export default function Register(props) {
         <br />
 
 
-        <input type="submit" value="Register" onClick={registerFunc} />
+        <input type="submit" value="Register" onClick={registerFunc} 
+        className="btn btn-outline-secondary"/>
       </form>
       <Link to ="/login"> Have An Account </Link>
          
