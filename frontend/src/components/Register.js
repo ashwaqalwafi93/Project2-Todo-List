@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import axios from "axios";
+import { Router,Route,Link, Routes } from 'react-router-dom';
 //this 
 export default function Register(props) {
     const [username, setusername] = useState("ashw");
@@ -73,6 +74,7 @@ export default function Register(props) {
 
         <input type="submit" value="Register" onClick={registerFunc} />
       </form>
+      <Link to ="/login"> Have An Account </Link>
          
         </div>
     );

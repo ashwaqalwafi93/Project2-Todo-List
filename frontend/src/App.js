@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React,{ useEffect, useState } from 'react';//عند استخدام الستيت
-
+import { Router,Route,Link, Routes } from 'react-router-dom';//اصدر الروايتر الروايتز هي الي فيها اكثر من راويت كل روايت فيها باث والمنت 
 import axios from 'axios';
 import Todo from './components/Todo';
 import Add from './components/Add';
@@ -12,8 +12,11 @@ export default function App() {
 
   const [tasks, settasks] = useState([]);//objofarray
 //استخدم اليوز افكت واحط فيها المناداه بدل من الزر
+const [isLogedln, setisLogedln] = useState(false);//لما نعما لوق ان تجينا المعلومات نحفظه بستيت بالاب تغير القيم ونمرر المتغير سيت على اللوق ان الي تحت 
+const [userName, setuserName] = useState('ashwaq');
+
   useEffect(()=>{
-  getData();
+    getData();
 },[]);
 
 const getData=()=>{
@@ -139,6 +142,21 @@ const filterData=(status)=>{
   return (
     <div className="App">
       <p class='p1'>My Tasks</p>
+      <p >Name:{userName}</p>{/*اسم اليوزر الي مسوي لوق ان  */}
+      
+      
+      <nav>
+        {/*الشى الي بروح له link to */}
+      <Link to ="/home">Home</Link>{' | '}{/*'|'هذي الحركة يعني خلي فراغ بينهم  */}
+      <Link to ="/login">login</Link>{' | '}
+      <Link to ="/register">Register</Link>{' | '}
+      </nav>
+    {/** الروايتر ما راح تتحققق الااذا كان فيه لو قان صح */}
+      <Routes>
+        <Route 
+        path="/home"
+        element={
+        <div className='Home'>
       <Add createFunc={postNewTodo}/>
             {/*لما اضغط على هذا البوتن ينادي فانكشن تجيب الداتا  */}
       <button class="b1" onClick={getData}>Get Tasks</button>{/*this button bring all data in server */}
@@ -159,12 +177,26 @@ const filterData=(status)=>{
       >
         Get Pending
       </button>
+        
+      </div>}
+      /> 
+      <Route 
+      path="/login"
+      element={
+        
+      <Login setisLogedln={setisLogedln} 
+      setuserName={setuserName}/>}/>
+{/*بروح اناديهم في االلوق ان */}
+
+      <Route path="/register"element={<Register />}/>
+      </Routes>
       
       {/*give his obj acsses function in app */}
      
    {/* {mapOverTasks} * */}  {/*this array */}
-   <Register/>
-      <Login/>
+   
+      
+      
     </div>
   );
 }
