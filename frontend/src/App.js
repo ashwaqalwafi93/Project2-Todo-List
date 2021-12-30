@@ -152,12 +152,16 @@ const filterData=(status)=>{
         {/*الشى الي بروح له link to */}
     {/** الروايتر ما راح تتحققق الااذا كان فيه لو قان صح */}
     
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light m-3">
   <div className="container-fluid">
     <a className="navbar-brand" href="#">Todos</a>
     
     
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button className="navbar-toggler" type="button"
+     data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" 
+      aria-label="Toggle navigation">
+
       <span className="navbar-toggler-icon"></span>
     </button>
     
@@ -182,21 +186,38 @@ const filterData=(status)=>{
     </div>
   </div>
 </nav>
-    
+<br/>
+
+<div className="m-3 text-center">
+        <button onClick={logoutfunc} class="btn btn-info m-2">
+          Logout
+        </button>
+
+        <button
+          type="button"
+          class="btn btn btn-dark"
+          data-bs-toggle="popover"
+          title="Todo List"
+          data-bs-content="Welcome to Todo List Web Application"
+        >
+          {userName ? "Welcome " + userName : "Please Login"}{" "}
+        </button>
+      </div>
+
+
       <Routes>
         <Route 
         path="/home"
         element={
-        <div className='Home'>
-      <Add createFunc={postNewTodo}/>
-            {/*لما اضغط على هذا البوتن ينادي فانكشن تجيب الداتا  */}
-      <button className="b1" onClick={getData}>Get Tasks</button>{/*this button bring all data in server */}
-      <br/><br/>
-      <button className="b2" onClick={deleteTask}>Delete Complted Tasks</button>
+        <div className='Home m-3'>
+          <div className='Home m-3 text-center'>
+      <button className="b1" onClick={getData} class="btn btn-primary m-2">Get Tasks</button>{/*this button bring all data in server */}
+    
+      <button className="b2" onClick={deleteTask}class="btn btn-danger m-2">Delete Complted Tasks</button>
       <button className="b3" 
       onClick={()=>{
         filterData(true);
-      }}
+      }}class="btn btn-outline-info m-2"
       >
         Get Data
       </button>
@@ -204,11 +225,19 @@ const filterData=(status)=>{
       <button className="b4"
        onClick={()=>{
         filterData(false);
-      }}
+      }}class="btn btn-outline-warning m-2"
       >
         Get Pending
       </button>
-        
+   
+      </div>
+
+         {/*لما اضغط على هذا البوتن ينادي فانكشن تجيب الداتا  */}
+         <Add createFunc={postNewTodo}/>
+
+          <div class="list-group">  {mapOverTasks} </div>
+
+
       </div>}
       /> 
       <Route 
@@ -221,12 +250,12 @@ const filterData=(status)=>{
 
       <Route path="/register"element={<Register />}/>
       </Routes>
-      <br/>
-      <button onClick={logoutfunc}>Logout</button>{/**لما يضغط عل زر لوقاوت ينادي الفانكشن ويغير قيمها  */}
+    
       
       {/*give his obj acsses function in app */}
      
-   {/* {mapOverTasks} * */}  {/*this array */}
+    
+     {/*this array */}
    
       
       
